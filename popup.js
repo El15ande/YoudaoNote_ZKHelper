@@ -8,7 +8,9 @@ document.getElementById('bcardbtn').onclick = function () {
 
 **Note**
 
-**Resource**`
+**Resource**
+
+---`
     )
     .then(() => console.log("newcard copied"))
     .catch(() => console.log("newcard copy failed"));
@@ -30,7 +32,9 @@ document.getElementById('ncardbtn').onclick = function () {
 
 **Note**
 
-**Resource**`
+**Resource**
+
+---`
     )
     .then(() => console.log("newcard copied"))
     .catch(() => console.log("newcard copy failed"));
