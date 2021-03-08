@@ -1,4 +1,4 @@
-document.getElementById('bcardbtn').onclick = function(e) {
+document.getElementById('mcardbtn').onclick = function(e) {
     let _index = document.getElementById('bcardidx').value;
 
     navigator.clipboard.writeText(
@@ -16,7 +16,7 @@ document.getElementById('bcardbtn').onclick = function(e) {
     .catch(() => console.log("newcard copy failed"));
 }
 
-document.getElementById('ncardbtn').onclick = function(e) {
+document.getElementById('rcardbtn').onclick = function(e) {
     let _now = new Date();
     let _month = _now.getMonth() + 1;
     let _day = _now.getDate();
