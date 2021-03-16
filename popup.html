@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+    <meta charset="utf-8" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" 
         rel="stylesheet" 
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" 
@@ -8,36 +9,46 @@
     >
 </head>
 <body>
-    <b><p id="head">YoudaoNote ZKHelper</p></b>
+    <b><h4 class="title" id="head">YoudaoNote ZK-Helper</h4></b>
+    
+    <hr>
 
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Index" id="mcardidx">
-        <div class="input-group-append"></div>
-            <button type="button" class="btn btn-primary" id="mcardbtn">New M-Card</button>
-        </div>
+    <p class="title">Identifer Generator</p>
+    <div class="input-group">
+        <input type="text" class="form-control" id="zkidx" placeholder="ZK-idx">
+        <input type="text" class="form-control" id="mdadr" placeholder="MD-adr">
     </div>
 
-    <button type="button" class="btn btn-primary" id="rcardbtn">New R-Card</button>
+    <button type="button" class="btn btn-outline-primary" id="pcardbtn">[P]ermanent</button>
+    <button type="button" class="btn btn-outline-primary" id="rcardbtn">[R]eading</button>
+
+    <hr>
+
+    <p class="title">Markdown Output</p>
+    <div id="md-output"></div>
 
     <style type="text/css">
         body {
-            min-width: 200px;
-            min-height: 300px;
+            width: 300px;
+            height: 400px;
         }
 
-        #head {
+        hr, .btn{
+            margin: 5px 30px 5px 30px;
+        }
+
+        .title {
             text-align: center;
             font-weight: bold;
+            margin: 5px 0 5px 0;
         }
 
         .input-group {
-            margin-top: 20px;
-            padding-left: 10px;
-            padding-right: 10px;
+            padding: 0 20px 0 20px;
         }
 
-        #rcardbtn {
-            margin-left: 50px;
+        .btn {
+            width: 80%;
         }
     </style>
 

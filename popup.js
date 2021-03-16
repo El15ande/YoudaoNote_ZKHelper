@@ -1,41 +1,30 @@
-document.getElementById('mcardbtn').onclick = function(e) {
-    let _index = document.getElementById('bcardidx').value;
+/**
+ * Generate Zettelkasten card template w/ idetifier
+ * @param {string} Z        Zettelkasten usage [P(ermanent), R(eading)]
+ */
+var makeClipboardZKTemplate = function(Z) {
+    let _zidx = document.getElementById('zkidx').value;
+    let _adr = document.getElementById('mdadr').value;
+    let _zettelId = `${Z}${_zidx}:${_adr}`;
 
-    navigator.clipboard.writeText(
-`#### <center>${_index ? _index : '1.1-1'}
-    
-**Tag**
-
-**Note**
-
-**Resource**
-
----`
-    )
-    .then(() => console.log("newcard copied"))
-    .catch(() => console.log("newcard copy failed"));
-}
-
-document.getElementById('rcardbtn').onclick = function(e) {
-    let _now = new Date();
-    let _month = _now.getMonth() + 1;
-    let _day = _now.getDate();
-
-    let makeString = (d) => {
-        return (d < 10) ? `0${d}` : `${d}`;
-    }
-
-    navigator.clipboard.writeText(
-`#### <center>${makeString(_month)}-${makeString(_day)}
-    
-**Tag**
+    // TODO Rcard format
+    navigator.clipboard.writeText(`
+**[[${_zettelId}]]**
+-
 
 **Note**
+-
 
-**Resource**
+**Reference**
+-
 
----`
-    )
-    .then(() => console.log("newcard copied"))
-    .catch(() => console.log("newcard copy failed"));
+---`)
+    .then(() => {})
+    .catch(() => {});
 }
+
+/**
+ * Event registration
+ */
+document.getElementById('pcardbtn').onclick = () => makeClipboardZKTemplate('P');
+document.getElementById('rcardbtn').onclick = () => makeClipboardZKTemplate('R');
