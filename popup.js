@@ -1,26 +1,43 @@
+var zettelId = '';
+
 /**
  * Generate Zettelkasten card template w/ idetifier
  * @param {string} Z        Zettelkasten usage [P(ermanent), R(eading)]
  */
 var makeClipboardZKTemplate = function(Z) {
-    let _zidx = document.getElementById('zkidx').value;
-    let _adr = document.getElementById('mdadr').value;
-    let _zettelId = `${Z}${_zidx}:${_adr}`;
+    // DDMMYY
+    let getSixDigitDate = function() {
+        let _date = new Date();
 
-    // TODO Rcard format
+        let _dd = ('0' + _date.getUTCDate()).slice(-2);
+        let _mm = ('0' + (_date.getUTCMonth()+1)).slice(-2);
+        let _yy = ('0' + _date.getUTCFullYear()).slice(3, 5);
+        
+        return _dd + _mm + _yy;
+    }
+
+
+    let _zidx = (Z === 'P') ? document.getElementById('zkidx').value : ''; 
+    let _name = document.getElementById('mdnam').value;
+    let _adr = (Z === 'P') ? document.getElementById('mdadr').value: getSixDigitDate();
+
+    zettelId = `${Z}${_zidx}:${_name}-${_adr}`;
+
     navigator.clipboard.writeText(`
-**[[${_zettelId}]]**
--
+**[[${zettelId}]]**
+- 
 
 **Note**
--
+- 
 
 **Reference**
--
+- 
 
 ---`)
-    .then(() => {})
-    .catch(() => {});
+    .then(() => {
+        document.getElementById('md-output').innerHTML = zettelId;
+    })
+    .catch(() => alert('Clip failed'));
 }
 
 /**
