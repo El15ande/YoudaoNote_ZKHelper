@@ -24,14 +24,14 @@ var makeClipboardZKTemplate = function(Z) {
     zettelId = `${Z}${_zidx}:${_name}-${_adr}`;
 
     navigator.clipboard.writeText(`
-**[[${zettelId}]]**
-- 
+**[[${zettelId}]]** <topic>
+- <tag>
 
-**Note**
+**Content**
 - 
 
 **Reference**
-- 
+- <ref>
 
 ---`)
     .then(() => {
