@@ -1,47 +1,65 @@
-var zettelId = '';
+// Util variables & functions
+var Utils = {
+    /**
+     * Transfer 1-9 to 01-09
+     * @param   {string|number} i   String/number: 1-9
+     * @returns {string}            String: 01-09             
+     */
+    addZero: function(i) {
+        return String(i).length < 2 ? `0${i}` : String(i);
+    }
+}
+
+
 
 /**
- * Generate Zettelkasten card template w/ idetifier
- * @param {string} Z        Zettelkasten usage [P(ermanent), R(eading)]
+ * Generate a unique Zettel identifier
+ * @param   {string} index      Last 2 digits of identifier
+ * @returns {string}            Complete Zettel identifier [yyyymmddii]
  */
-var makeClipboardZKTemplate = function(Z) {
-    // DDMMYY
-    let getSixDigitDate = function() {
-        let _date = new Date();
+var generateZettelIdentifier = function(index) {
+    let _date = new Date();
 
-        let _dd = ('0' + _date.getUTCDate()).slice(-2);
-        let _mm = ('0' + (_date.getUTCMonth()+1)).slice(-2);
-        let _yy = ('0' + _date.getUTCFullYear()).slice(3, 5);
-        
-        return _dd + _mm + _yy;
-    }
+    let _yyyy = _date.getFullYear();
+    let _mm = Utils.addZero(_date.getMonth() + 1);
+    let _dd = Utils.addZero(_date.getDate());
 
-
-    let _zidx = (Z === 'P') ? document.getElementById('zkidx').value : ''; 
-    let _name = document.getElementById('mdnam').value;
-    let _adr = (Z === 'P') ? document.getElementById('mdadr').value: getSixDigitDate();
-
-    zettelId = `${Z}${_zidx}:${_name}-${_adr}`;
-
-    navigator.clipboard.writeText(`
-**[[${zettelId}]]** <topic>
-- <tag>
-
-**Content**
-- 
-
-**Reference**
-- <ref>
-
----`)
-    .then(() => {
-        document.getElementById('md-output').innerHTML = zettelId;
-    })
-    .catch(() => alert('Clip failed'));
+    return `[${_yyyy}${_mm}${_dd}${Utils.addZero(index)}]`;
 }
+
+
 
 /**
  * Event registration
  */
-document.getElementById('pcardbtn').onclick = () => makeClipboardZKTemplate('P');
-document.getElementById('rcardbtn').onclick = () => makeClipboardZKTemplate('R');
+// On 'Generate Zettel' clicked
+document.getElementById('zettel-idgen-btn').onclick = () => {
+    let title = '';
+    
+    let _idx = document.getElementById('zettel-idgen-index').value;
+    let _text = document.getElementById('zettel-idgen-text').value;
+
+    if(!_text) {
+        alert('Undefined Zettel title.');
+        return;
+    }
+
+    switch (+document.getElementById('zettel-idgen-cat').value) {
+        case 0: // [yyyymmddii] title
+            title = `${generateZettelIdentifier(_idx)} ${_text}`;
+            break;
+        case 1: // [SN] title
+            title = `[SN] ${_text}`;
+            break;
+        case 2: // [yyyymmddii] [S] title
+            title = `${generateZettelIdentifier(_idx)} [S] ${_text}`
+            break;
+        default: break;
+    }
+
+    navigator.clipboard.writeText(title)
+        .then(() => alert(title));
+}
+
+// On 'Manage Zettels' clicked
+document.getElementById('opt-btn').onclick = () => chrome.runtime.openOptionsPage();

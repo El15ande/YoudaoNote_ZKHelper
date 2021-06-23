@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
 
@@ -10,51 +11,63 @@
         crossorigin="anonymous"
     >
 </head>
-<body>
-    <h4 class="title">YoudaoNote ZK-Helper</h4>
-    
-    <hr>
 
-    <p class="title">Identifer Generator</p>
-    <div class="input-group">
-        <input type="text" class="form-control" id="zkidx" placeholder="Zidx">
-        <input type="text" class="form-control" id="mdnam" placeholder="Mnam*">
-        <input type="text" class="form-control" id="mdadr" placeholder="Madr">
+<body>
+    <div class="block" id="zettel-idgen">
+        <h4>Zettel Identifier Generator</h4>
+
+        <label for="zettel-idgen-cat" class="form-label">Zettel Category</label>
+        <select class="form-select" id="zettel-idgen-cat">
+            <option value="0" selected>Default [MD]</option>
+            <option value="1">Strcuture Note [MD]</option>
+            <option value="2">Summary [N]</option>
+        </select>
+
+        <label for="zettel-idgen-index" class="form-label">Zettel Index</label>
+        <input type="number" class="form-control" id="zettel-idgen-index" value="1" min="1" max="99">
+
+        <label for="zettel-idgen-text" class="form-label">Zettel Title</label>
+        <input type="text" class="form-control" id="zettel-idgen-text">
+
+        <button type="button" class="btn btn-primary" id="zettel-idgen-btn">Generate Zettel</button>
     </div>
 
-    <button type="button" class="btn btn-outline-primary" id="pcardbtn">[P]ermanent</button>
-    <button type="button" class="btn btn-outline-primary" id="rcardbtn">[R]eading</button>
+    <hr class="block">
 
-    <hr>
-
-    <p class="title">Markdown Output</p>
-    <div id="md-output"></div>
-
-    <style type="text/css">
-        body {
-            width: 300px;
-            height: 400px;
-        }
-
-        hr, .btn{
-            margin: 5px 30px 5px 30px;
-        }
-
-        .title {
-            text-align: center;
-            font-weight: bold;
-            margin: 5px 0 5px 0;
-        }
-
-        .input-group {
-            padding: 0 20px 0 20px;
-        }
-
-        .btn {
-            width: 80%;
-        }
-    </style>
+    <div class="block">
+        <button type="button" class="btn btn-primary" id="opt-btn">Manage Zettels</button>
+    </div>
 
     <script src="popup.js"></script>
 </body>
+
+<style>
+    body {
+        min-width: 300px;
+        min-height: 400px;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    h4 {
+        text-align: center;
+    }
+
+    #zettel-idgen-btn {
+        margin-top: 10px;
+    }
+
+    .block {
+        width: 80%;
+        margin: 10px 30px 10px 30px;
+    }
+
+    hr .block {
+        margin: 0;
+    }
+
+</style>
+
 </html>
